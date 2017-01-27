@@ -31,7 +31,34 @@ export class HeroesComponent implements OnInit {
     this.heroService.getHeroesSlowly().then((heroes) => this.heroes = heroes);
   }
 
-  // class methods
+  new(newHeroName: string): void {
+    newHeroName = newHeroName.trim();
+    if (newHeroName == null || newHeroName == '') {
+      return;
+    }
+
+    this.heroService.newHero(newHeroName)
+      .then(hero => {
+        this.heroes.push(hero)
+        //this.selectedHero = null;
+      });
+  }
+
+  delete(toDelete: Hero): void {
+    if (toDelete == null) {
+      return;
+    }
+
+    this.heroService
+      .deleteHero(toDelete)
+      .then(() => {
+        this.heroes = this.heroes.filter(hero => hero !== toDelete);
+        if (this.selectedHero === toDelete) {
+          this.selectedHero = null;
+        }
+      });
+  }
+
   onSelect(selected: Hero): void {
     this.selectedHero = selected;
   }

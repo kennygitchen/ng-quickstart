@@ -14,7 +14,6 @@ import { Hero } from './hero';
   styleUrls: ['heroes.component.css'],
   templateUrl: 'heroes.component.html'
 })
-
 export class HeroesComponent implements OnInit {
   // class member
   heroes: Hero[];
@@ -28,7 +27,7 @@ export class HeroesComponent implements OnInit {
   }
 
   loadHeros(): void {
-    this.heroService.getHeroesSlowly().then((heroes) => this.heroes = heroes);
+    this.heroService.getHeroes().then((heroes) => this.heroes = heroes);
   }
 
   new(newHeroName: string): void {

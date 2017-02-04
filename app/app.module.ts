@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard.component';
 import { HeroesComponent } from './heroes.component';
 import { HeroDetailComponent } from './hero-detail.component';
+import { HeroSearchComponent } from './hero/components/hero-search.component';
 
 
 
@@ -23,11 +24,11 @@ import { HeroDetailComponent } from './hero-detail.component';
     BrowserModule, 
     FormsModule, 
     HttpModule,
-    InMemoryWebApiModule.forRoot( InMemoryDataService ),
+    InMemoryWebApiModule.forRoot( InMemoryDataService, {delay:300} ),
     AppRoutingModule
   ],
   providers: [HeroService],
-  declarations: [AppComponent, DashboardComponent, HeroesComponent, HeroDetailComponent],
+  declarations: [AppComponent, DashboardComponent, HeroesComponent, HeroDetailComponent, HeroSearchComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

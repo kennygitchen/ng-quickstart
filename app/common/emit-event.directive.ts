@@ -16,7 +16,7 @@ export class EmitEventDirective {
     @HostListener('keypress', ['$event'])
     onValueChange(event: Event) {
         this.eventEmitter.emit(event);
-        //console.error(this.eventName);
+        console.error(this.eventName);
         console.error(event);
     }
 }

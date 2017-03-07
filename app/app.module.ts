@@ -16,7 +16,7 @@ import { DashboardComponent } from './dashboard.component';
 import { HeroesComponent } from './heroes.component';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroSearchComponent } from './hero/components/hero-search.component';
-
+import { EmitEventDirective } from './common/emit-event.directive';
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import { HeroSearchComponent } from './hero/components/hero-search.component';
     AppRoutingModule
   ],
   providers: [HeroService],
-  declarations: [AppComponent, DashboardComponent, HeroesComponent, HeroDetailComponent, HeroSearchComponent],
+  declarations: [AppComponent, DashboardComponent, HeroesComponent, HeroDetailComponent, HeroSearchComponent, EmitEventDirective],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

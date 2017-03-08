@@ -1,21 +1,23 @@
 import { Directive, ElementRef, Input, HostListener, Output, EventEmitter } from '@angular/core'
+import { EventBusService } from './services/event/eventBus.service';
 
 @Directive({
-    selector: '[emitEvent]'
+    selector: '[emitEvent]',
+    providers: [EventBusService]
 })
 export class EmitEventDirective {
 
     @Input('emitEvent')
     private eventName: string;
 
-    @Output('customChangeEvent')
-    eventEmitter = new EventEmitter<any>();
-
-    constructor(private ele: ElementRef) { }
+    constructor(
+        private eventBusService: EventBusService,
+        private ele: ElementRef) {
+    }
 
     @HostListener('keypress', ['$event'])
     onValueChange(event: Event) {
-        this.eventEmitter.emit(event);
+        this.eventBusService.publish(this.eventName, event);
         console.error(this.eventName);
         console.error(event);
     }

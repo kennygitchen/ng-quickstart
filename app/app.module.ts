@@ -10,6 +10,7 @@ import { InMemoryDataService } from './in-memory-data.services';
 
 //custom import
 import { AppRoutingModule } from './app-routing.module';
+import { EventBusService } from './common/services/event/eventBus.service';
 import { HeroService } from './hero.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard.component';
@@ -21,13 +22,13 @@ import { EmitEventDirective } from './common/emit-event.directive';
 
 @NgModule({
   imports: [
-    BrowserModule, 
-    FormsModule, 
+    BrowserModule,
+    FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot( InMemoryDataService, {delay:300} ),
+    InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 300 }),
     AppRoutingModule
   ],
-  providers: [HeroService],
+  providers: [EventBusService, HeroService],
   declarations: [AppComponent, DashboardComponent, HeroesComponent, HeroDetailComponent, HeroSearchComponent, EmitEventDirective],
   bootstrap: [AppComponent]
 })

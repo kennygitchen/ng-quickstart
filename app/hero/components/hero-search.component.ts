@@ -10,6 +10,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 //app import
+import { EventBusService } from '../../common/services/event/eventBus.service';
 import { HeroSearchService } from '../services/hero-search.service';
 import { Hero } from '../../hero';
 
@@ -18,16 +19,20 @@ import { Hero } from '../../hero';
     selector: 'hero-search',
     templateUrl: './hero-search.component.html',
     styleUrls: ['./hero-search.component.css'],
-    providers: [HeroSearchService]
+    providers: [EventBusService, HeroSearchService]
 })
 export class HeroSearchComponent implements OnInit {
     private searchTerms = new Subject<string>();
     private heros: Observable<Hero[]>;
 
     constructor(
+        private eventBusService: EventBusService,
         private heroSearchService: HeroSearchService,
-        private router: Router
-    ) { }
+        private router: Router) {
+        this.eventBusService.subscribe('heroSearch', (data: any) => {
+            console.error("data published, data=" + data);
+        })
+    }
 
     search(term: string) {
         this.searchTerms.next(term);

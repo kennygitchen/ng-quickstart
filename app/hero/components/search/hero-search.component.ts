@@ -13,7 +13,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { EventBusService } from '../../../common/services/event/eventBus.service';
 import { AppEvent } from '../../../common/app-event.directive';
 import { HeroSearchService } from '../../services/hero-search.service';
-import { Hero } from '../../../hero';
+import { Hero } from '../../hero';
 
 @Component({
     moduleId: module.id,

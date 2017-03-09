@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 // component imports
 import { HeroService } from '../../services/hero.service'
-import { Hero } from '../../../hero';
+import { Hero } from '../../hero';
 
 
 @Component({

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 
 import { HeroService } from '../../services/hero.service';
-import { Hero } from '../../../hero';
+import { Hero } from '../../hero';
 
 @Component({
     moduleId: module.id,

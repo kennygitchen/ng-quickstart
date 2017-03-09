@@ -17,7 +17,7 @@ export class AppEventDirective {
     @HostListener('input', ['$event'])
     onValueChange(event: Event) {
         this.eventBusService.publish(
-            this.eventName, new AppEvent(event, this.eventName, event.target.value));
+            this.eventName, new AppEvent(event, this.eventName, (<HTMLInputElement>event.target).value));
     }
 }
 

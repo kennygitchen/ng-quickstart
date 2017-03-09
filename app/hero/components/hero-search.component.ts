@@ -11,6 +11,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 //app import
 import { EventBusService } from '../../common/services/event/eventBus.service';
+import { AppEvent } from '../../common/app-event.directive';
 import { HeroSearchService } from '../services/hero-search.service';
 import { Hero } from '../../hero';
 
@@ -29,8 +30,8 @@ export class HeroSearchComponent implements OnInit {
         private eventBusService: EventBusService,
         private heroSearchService: HeroSearchService,
         private router: Router) {
-        this.eventBusService.subscribe('heroSearch', (data: any) => {
-            console.error("data published, data=" + data);
+        this.eventBusService.subscribe('heroSearch', (data: AppEvent) => {
+            this.search(data.eventData)
         })
     }
 

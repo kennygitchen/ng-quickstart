@@ -6,7 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { HeroService } from '../../services/hero.service';
-import { Hero } from '../../hero';
+//import { Hero } from '../../hero';
 
 @Component({
     moduleId: module.id,
@@ -18,6 +18,7 @@ import { Hero } from '../../hero';
 export class HeroDetailComponent implements OnInit {
 
     private heroDetailForm: FormGroup;
+    private abilityTypes = ['Physical', 'Regeneration', 'Magic', 'Mental'];
 
     constructor(
         private heroService: HeroService,
@@ -32,14 +33,16 @@ export class HeroDetailComponent implements OnInit {
             .subscribe((hero) => {
               this.heroDetailForm = this.formBuilder.group( {
                 id: hero.id,
-                name: [hero.name, Validators.required]
+                name: [hero.name, Validators.required],
+                abilityType: [hero.abilityType, Validators.required]
               } );
             });
     }
 
     save(): void {
-        this.heroService.saveHero( this.heroDetailForm.getRawValue() )
-            .then(() => this.goBack());
+        this.heroService
+          .saveHero( this.heroDetailForm.getRawValue() )
+          .then(() => this.goBack());
     }
 
     goBack(): void {

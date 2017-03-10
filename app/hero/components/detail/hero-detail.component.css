@@ -1,11 +1,11 @@
 label {
   display: inline-block;
-  width: 3em;
+  width: 15em;
   margin: .5em 0;
   color: #607D8B;
   font-weight: bold;
 }
-input {
+input, select {
   height: 2em;
   font-size: 1em;
   padding-left: .4em;
@@ -24,6 +24,6 @@ button:hover {
 }
 button:disabled {
   background-color: #eee;
-  color: #ccc; 
+  color: #ccc;
   cursor: auto;
 }

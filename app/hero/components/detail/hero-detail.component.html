@@ -6,6 +6,12 @@
       <label>name: </label>
       <input formControlName="name" placeholder="name"/>
     </div>
+    <div>
+      <label>ability type: </label>
+      <select formControlName="abilityType">
+        <option *ngFor="let type of abilityTypes" [value]="type">{{type}}</option>
+      </select>
+    </div>
     <button (click)="save()">Save</button>
     <button (click)="goBack()">Back</button>
   </form>

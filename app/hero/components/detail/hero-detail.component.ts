@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -16,23 +17,28 @@ import { Hero } from '../../hero';
 
 export class HeroDetailComponent implements OnInit {
 
-    hero: Hero;
+    private heroDetailForm: FormGroup;
 
     constructor(
         private heroService: HeroService,
         private router: ActivatedRoute,
-        private location: Location) {
-
+        private location: Location,
+        private formBuilder: FormBuilder ) {
     }
 
     ngOnInit(): void {
         this.router.params
             .switchMap((params: Params) => this.heroService.getHero(+params['id']))
-            .subscribe((hero) => this.hero = hero);
+            .subscribe((hero) => {
+              this.heroDetailForm = this.formBuilder.group( {
+                id: hero.id,
+                name: [hero.name, Validators.required]
+              } );
+            });
     }
 
     save(): void {
-        this.heroService.saveHero(this.hero)
+        this.heroService.saveHero( this.heroDetailForm.getRawValue() )
             .then(() => this.goBack());
     }
 

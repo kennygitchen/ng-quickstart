@@ -6,6 +6,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 
 import {HeroService} from '../../services/hero.service';
+import {AbilityDetail} from "../../abilityDetail";
 //import { Hero } from '../../hero';
 
 @Component({
@@ -18,7 +19,7 @@ import {HeroService} from '../../services/hero.service';
 export class HeroDetailComponent implements OnInit {
 
   private heroDetailForm: FormGroup;
-  private abilityTypes = ['Physical', 'Regeneration', 'Magic', 'Mental'];
+  private abilityTypes = AbilityDetail.abilityTypes;
 
   constructor(private heroService: HeroService,
               private router: ActivatedRoute,
@@ -33,10 +34,13 @@ export class HeroDetailComponent implements OnInit {
         this.heroDetailForm = this.formBuilder.group({
           id: hero.id,
           name: [hero.name, Validators.required],
-          abilityType: [hero.abilityType, Validators.required]
+          abilityDetail: this.formBuilder.group({
+            type: [hero.abilities[0].type, Validators.required],
+            ability: [hero.abilities[0].ability, Validators.required]
+          })
         });
         this.heroDetailForm.get('name').valueChanges
-          .debounceTime(500).subscribe(newValue => {
+          .debounceTime(300).subscribe(newValue => {
           console.error("onChange, name=" + newValue);
         });
       });
@@ -47,8 +51,10 @@ export class HeroDetailComponent implements OnInit {
       alert('Form contains invalid data.');
       return;
     }
+    let updatedHero = this.heroDetailForm.getRawValue();
+    updatedHero.abilities = [ updatedHero.abilityDetail ];
     this.heroService
-      .saveHero(this.heroDetailForm.getRawValue())
+      .saveHero(updatedHero)
       .then(() => this.goBack());
   }
 

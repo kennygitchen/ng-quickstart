@@ -1,5 +1,7 @@
+import {AbilityDetail} from "./abilityDetail";
+
 export class Hero {
   id: number;
   name: string;
-  abilityType: string;
+  abilities: AbilityDetail[];
 }

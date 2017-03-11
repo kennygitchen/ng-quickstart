@@ -6,11 +6,17 @@
       <label>name: </label>
       <input formControlName="name" placeholder="name"/>
     </div>
-    <div>
-      <label>ability type: </label>
-      <select formControlName="abilityType">
-        <option *ngFor="let type of abilityTypes" [value]="type">{{type}}</option>
-      </select>
+    <div formGroupName="abilityDetail">
+      <div>
+        <label>ability type: </label>
+        <select formControlName="type">
+          <option *ngFor="let type of abilityTypes" [value]="type">{{type}}</option>
+        </select>
+      </div>
+      <div>
+        <label>ability: </label>
+        <input formControlName="ability" placeholder="ability"/>
+      </div>
     </div>
     <button (click)="save()"   [disabled]="heroDetailForm.pristine">Save</button>
     <button (click)="revert()" [disabled]="heroDetailForm.pristine">Revert</button>

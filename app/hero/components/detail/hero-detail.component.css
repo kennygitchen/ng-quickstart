@@ -5,10 +5,14 @@ label {
   color: #607D8B;
   font-weight: bold;
 }
-input, select {
+input, select, option {
+  width: 180px;
   height: 2em;
   font-size: 1em;
   padding-left: .4em;
+}
+select {
+  width: 191px;
 }
 button {
   margin-top: 20px;

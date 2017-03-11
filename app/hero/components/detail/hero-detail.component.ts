@@ -40,6 +40,10 @@ export class HeroDetailComponent implements OnInit {
     }
 
     save(): void {
+        if( this.heroDetailForm.invalid ) {
+            alert( 'Form contains invalid data.' );
+            return;
+        }
         this.heroService
           .saveHero( this.heroDetailForm.getRawValue() )
           .then(() => this.goBack());

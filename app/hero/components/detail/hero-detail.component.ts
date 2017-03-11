@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 
 import {Component, Input, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormArray, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 
@@ -34,10 +34,7 @@ export class HeroDetailComponent implements OnInit {
         this.heroDetailForm = this.formBuilder.group({
           id: hero.id,
           name: [hero.name, Validators.required],
-          abilityDetail: this.formBuilder.group({
-            type: [hero.abilities[0].type, Validators.required],
-            ability: [hero.abilities[0].ability, Validators.required]
-          })
+          abilities: this.buildAbilities(hero.abilities)
         });
         this.heroDetailForm.get('name').valueChanges
           .debounceTime(300).subscribe(newValue => {
@@ -46,15 +43,41 @@ export class HeroDetailComponent implements OnInit {
       });
   }
 
+  private buildAbilities(abilities: AbilityDetail[]): FormArray {
+    return this.formBuilder.array(
+      abilities.map(ability => {
+        return this.formBuilder.group({
+          type: [ability.type || '', Validators.required],
+          ability: [ability.ability || '', Validators.required]
+        });
+      }));
+  }
+
+  get abilitiesFormArray(): FormArray {
+    return this.heroDetailForm.get('abilities') as FormArray;
+  }
+
+  addAbility(): void {
+    this.abilitiesFormArray.push(this.formBuilder.group({
+        type: ['', Validators.required],
+        ability: ['', Validators.required]
+      }
+    ));
+    this.heroDetailForm.markAsPristine(false);
+  }
+
+  removeAbility( index: number ): void {
+    this.abilitiesFormArray.removeAt( index );
+    this.heroDetailForm.markAsPristine(false);
+  }
+
   save(): void {
     if (this.heroDetailForm.invalid) {
       alert('Form contains invalid data.');
       return;
     }
-    let updatedHero = this.heroDetailForm.getRawValue();
-    updatedHero.abilities = [ updatedHero.abilityDetail ];
     this.heroService
-      .saveHero(updatedHero)
+      .saveHero(this.heroDetailForm.getRawValue())
       .then(() => this.goBack());
   }
 

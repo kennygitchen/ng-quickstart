@@ -6,19 +6,27 @@
       <label>name: </label>
       <input formControlName="name" placeholder="name"/>
     </div>
-    <div formGroupName="abilityDetail">
+
+    <div formArrayName="abilities">
       <div>
-        <label>ability type: </label>
-        <select formControlName="type">
-          <option *ngFor="let type of abilityTypes" [value]="type">{{type}}</option>
-        </select>
+        <label>Hero's abilities:</label>
+        <button (click)="addAbility()">New</button>
       </div>
-      <div>
-        <label>ability: </label>
-        <input formControlName="ability" placeholder="ability"/>
+      <div *ngFor="let ability of abilitiesFormArray.controls; let counter=index" [formGroupName]="counter">
+        <div>
+          <label>ability type: </label>
+          <select formControlName="type">
+            <option *ngFor="let type of abilityTypes" [value]="type">{{type}}</option>
+          </select>
+        </div>
+        <div>
+          <label>ability: </label>
+          <input formControlName="ability" placeholder="ability"/>
+        </div>
+        <button (click)="removeAbility( counter )">Remove</button>
       </div>
     </div>
-    <button (click)="save()"   [disabled]="heroDetailForm.pristine">Save</button>
+    <button (click)="save()" [disabled]="heroDetailForm.pristine">Save</button>
     <button (click)="revert()" [disabled]="heroDetailForm.pristine">Revert</button>
     <button (click)="goBack()">Back</button>
   </form>

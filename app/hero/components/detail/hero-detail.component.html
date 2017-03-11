@@ -12,7 +12,8 @@
         <option *ngFor="let type of abilityTypes" [value]="type">{{type}}</option>
       </select>
     </div>
-    <button (click)="save()">Save</button>
+    <button (click)="save()"   [disabled]="heroDetailForm.pristine">Save</button>
+    <button (click)="revert()" [disabled]="heroDetailForm.pristine">Revert</button>
     <button (click)="goBack()">Back</button>
   </form>
 </div>

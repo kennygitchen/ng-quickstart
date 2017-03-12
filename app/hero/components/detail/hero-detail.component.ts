@@ -36,6 +36,7 @@ export class HeroDetailComponent implements OnInit {
           name: [hero.name, Validators.required],
           abilities: this.buildAbilities(hero.abilities)
         });
+        window.form = this.heroDetailForm;
         this.heroDetailForm.get('name').valueChanges
           .debounceTime(300).subscribe(newValue => {
           console.error("onChange, name=" + newValue);
@@ -58,17 +59,18 @@ export class HeroDetailComponent implements OnInit {
   }
 
   addAbility(): void {
-    this.abilitiesFormArray.push(this.formBuilder.group({
+    let newAbilityControl = this.formBuilder.group({
         type: ['', Validators.required],
         ability: ['', Validators.required]
       }
-    ));
-    this.heroDetailForm.markAsPristine(false);
+    );
+    this.abilitiesFormArray.push(newAbilityControl);
+    newAbilityControl.markAsDirty(true);
   }
 
   removeAbility( index: number ): void {
     this.abilitiesFormArray.removeAt( index );
-    this.heroDetailForm.markAsPristine(false);
+    this.heroDetailForm.markAsDirty(true);
   }
 
   save(): void {
